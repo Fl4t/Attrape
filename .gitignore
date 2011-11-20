@@ -1,2 +1,3 @@
-Attrape/bin/
-Attrape/obj/
+Attrape/obj/*
+Attrape/bin/*
+!Attrape/bin/Debug/Attrape.exe
