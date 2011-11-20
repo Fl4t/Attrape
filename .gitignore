@@ -1,3 +1,4 @@
 Attrape/obj/*
 Attrape/bin/*
 !Attrape/bin/Debug/Attrape.exe
+Attrape.suo
