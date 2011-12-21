@@ -1,10 +1,9 @@
 ﻿Public Class AttrapeForm
+
     ' On crée un objet qui servira pour plusieurs choses
     Private mobjAleatoire As New Random
-    ' Représente le formulaire mdi
-    Private mformMDI As MDIParent
 
-    Private Sub AttrapeForm_Click(ByVal sender As Object, _
+    Private Sub AttrapeForm_Click(ByVal sender As Object,
                                   ByVal e As System.EventArgs) _
                                   Handles Me.Click
         'On agrandi le formulaire vu que visiblement, l'utilisateur peine :)
@@ -18,16 +17,27 @@
             AttrapeLabel.Text = "AHAH !!!"
         End If
 
-        mformMDI = MdiParent
-        If mformMDI.DifficileToolStripMenuItem.Checked Then
-            mformMDI.NouveauFormToolStripMenuItem.PerformClick()
+        If JeuForm.MultiRadioButton.Checked Then
+            MDIParentForm.nouveauFormulaire()
         End If
     End Sub
 
-    Private Sub AttrapeForm_Load(ByVal sender As System.Object, _
+    Private Sub AttrapeForm_Load(ByVal sender As System.Object,
                                  ByVal e As System.EventArgs) _
                                  Handles MyBase.Load
-        ' on lance le timer
+        ' On déclare MDIParentForm comme parent
+        MDIParentForm = MdiParent
+
+        ' on lance le timer avec l'intervale choisi
+        If JeuForm.VitesseTrackBar.Value = 1 Then
+            AttrapeTimer.Interval = 900
+        ElseIf JeuForm.VitesseTrackBar.Value = 2 Then
+            AttrapeTimer.Interval = 700
+        ElseIf JeuForm.VitesseTrackBar.Value = 3 Then
+            AttrapeTimer.Interval = 600
+        Else
+            AttrapeTimer.Interval = 500
+        End If
         AttrapeTimer.Start()
 
         'couleur du formulaire
@@ -55,27 +65,17 @@
     Private Sub AttrapeTimer_Tick(ByVal sender As System.Object, _
                                   ByVal e As System.EventArgs) _
                                   Handles AttrapeTimer.Tick
-        mformMDI = MdiParent
-        If mformMDI.ComboVitesse.SelectedIndex = 0 Then
-            AttrapeTimer.Interval = 1000
-        ElseIf mformMDI.ComboVitesse.SelectedIndex = 1 Then
-            AttrapeTimer.Interval = 800
-        ElseIf mformMDI.ComboVitesse.SelectedIndex = 2 Then
-            AttrapeTimer.Interval = 600
-        ElseIf mformMDI.ComboVitesse.SelectedIndex = 3 Then
-            AttrapeTimer.Interval = 400
-        End If
         'déplacement du formulaire 
         '(- la largeur et - la hauteur du formulaire car sinon il dépasse de l'écran - marge du MDI)
-        Dim intHauteurEcran As Integer = mformMDI.Height - Me.Height - 40
-        Dim intLargeurEcran As Integer = mformMDI.Width - Me.Width - 10
+        Dim intHauteurEcran As Integer = MDIParentForm.Height - Me.Height - 40
+        Dim intLargeurEcran As Integer = MDIParentForm.Width - Me.Width - 10
         Dim intPositionX, intPositionY As Integer
         intPositionX = mobjAleatoire.Next(0, intLargeurEcran)
         intPositionY = mobjAleatoire.Next(0, intHauteurEcran)
         Me.Location = New Point(intPositionX, intPositionY)
     End Sub
 
-    Private Sub AttrapeForm_LocationChanged(ByVal sender As Object, _
+    Private Sub AttrapeForm_LocationChanged(ByVal sender As Object,
                                             ByVal e As System.EventArgs) _
                                             Handles Me.LocationChanged
         ' Re-initialise le label à chaque changement de position
@@ -91,7 +91,7 @@
         End With
     End Sub
 
-    Private Sub AttrapeForm_SizeChanged(ByVal sender As Object, _
+    Private Sub AttrapeForm_SizeChanged(ByVal sender As Object,
                                         ByVal e As System.EventArgs) _
                                         Handles Me.SizeChanged
         'Repositionne correctement le label 
@@ -105,7 +105,7 @@
         AttrapeButton.Location = New Point(intPositionBouttonX, intPositionBouttonY)
     End Sub
 
-    Private Sub AttrapeForm_MouseHover(ByVal sender As Object, _
+    Private Sub AttrapeForm_MouseHover(ByVal sender As Object,
                                        ByVal e As System.EventArgs) _
                                        Handles Me.MouseHover
         ' On génère les couleurs RVB
@@ -129,20 +129,26 @@
         End With
     End Sub
 
-    Private Sub AttrapeLabel_TextChanged(ByVal sender As Object, _
+    Private Sub AttrapeLabel_TextChanged(ByVal sender As Object,
                                          ByVal e As System.EventArgs) _
                                          Handles AttrapeLabel.TextChanged
         AttrapeLabel.Font = New Font("Segoe", 8, FontStyle.Bold)
         AttrapeButton.Font = New Font("Segoe", 8, FontStyle.Bold)
     End Sub
 
-    Private Sub AttrapeButton_MouseDown(ByVal sender As Object, _
+    Private Sub AttrapeButton_MouseDown(ByVal sender As Object,
                                         ByVal e As System.Windows.Forms.MouseEventArgs) _
                                         Handles AttrapeButton.MouseDown
         Me.Close()
+        If MDIParentForm.MdiChildren.Length = 0 Then
+            MDIParentForm.JeuTimer.Stop()
+            MDIParentForm.TempToolStripTextBox.Text = "Gagné !"
+            MessageBox.Show("Vous avez gagné !", "Attrape", MessageBoxButtons.OK,
+                            MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1)
+        End If
     End Sub
 
-    Private Sub AttrapeButton_ForeColorChanged(ByVal sender As Object, _
+    Private Sub AttrapeButton_ForeColorChanged(ByVal sender As Object,
                                                ByVal e As System.EventArgs) _
                                                Handles AttrapeButton.ForeColorChanged
         Select Case AttrapeButton.FlatStyle

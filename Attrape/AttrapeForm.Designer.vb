@@ -22,9 +22,9 @@ Partial Class AttrapeForm
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.AttrapeButton = New System.Windows.Forms.Button
-        Me.AttrapeLabel = New System.Windows.Forms.Label
+        Me.components = New System.ComponentModel.Container()
+        Me.AttrapeButton = New System.Windows.Forms.Button()
+        Me.AttrapeLabel = New System.Windows.Forms.Label()
         Me.AttrapeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
