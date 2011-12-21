@@ -11,13 +11,13 @@ Public Class MDIParentForm
         ChildForm.Show()
     End Sub
 
-    Private Sub QuitterToolStripMenuItem_Click(ByVal sender As System.Object, _
+    Private Sub QuitterToolStripMenuItem_Click(ByVal sender As System.Object,
                                                ByVal e As System.EventArgs) _
                                                Handles QuitterToolStripMenuItem.Click
         Me.Close()
     End Sub
 
-    Private Sub NouvellePartieToolStripMenuItem_Click(ByVal sender As Object, _
+    Private Sub NouvellePartieToolStripMenuItem_Click(ByVal sender As Object,
                                                    ByVal e As System.EventArgs) _
                                                    Handles NouvellePartieToolStripMenuItem.Click
         JeuForm.Show()
