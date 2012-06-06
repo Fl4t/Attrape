@@ -129,7 +129,7 @@ Partial Class JeuForm
         Me.VitesseTrackBar.Minimum = 1
         Me.VitesseTrackBar.Name = "VitesseTrackBar"
         Me.VitesseTrackBar.Orientation = System.Windows.Forms.Orientation.Vertical
-        Me.VitesseTrackBar.Size = New System.Drawing.Size(45, 76)
+        Me.VitesseTrackBar.Size = New System.Drawing.Size(42, 76)
         Me.VitesseTrackBar.TabIndex = 4
         Me.VitesseTrackBar.Value = 2
         '
@@ -165,6 +165,7 @@ Partial Class JeuForm
         Me.Name = "JeuForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Attrape"
+        Me.TopMost = True
         Me.ModeDeJeuGroupBox.ResumeLayout(False)
         Me.ModeDeJeuGroupBox.PerformLayout()
         Me.VitesseGroupBox.ResumeLayout(False)

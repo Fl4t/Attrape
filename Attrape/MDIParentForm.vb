@@ -2,6 +2,11 @@
 
 Public Class MDIParentForm
 
+    Public Sub nouvellePartie()
+        Call supprimerEnfant()
+        Call nouveauFormulaire()
+    End Sub
+
     Public Sub nouveauFormulaire()
         JeuTimer.Start()
         ' Créez une nouvelle instance du formulaire enfant.
@@ -9,6 +14,14 @@ Public Class MDIParentForm
         ' Configurez-la en tant qu'enfant de ce formulaire MDI avant de l'afficher.
         ChildForm.MdiParent = Me
         ChildForm.Show()
+    End Sub
+
+    Public Sub supprimerEnfant()
+        ' fermeture des formulaires enfants
+        Dim enfants() As Form = Me.MdiChildren
+        For Each formulaire In enfants
+            formulaire.Close()
+        Next
     End Sub
 
     Private Sub QuitterToolStripMenuItem_Click(ByVal sender As System.Object,
@@ -30,11 +43,7 @@ Public Class MDIParentForm
         If TempToolStripTextBox.Text = 0 Then
             JeuTimer.Stop()
             TempToolStripTextBox.Text = "Perdu !"
-            ' fermeture des formulaires enfants
-            Dim enfants() As Form = Me.MdiChildren
-            For Each formulaire In enfants
-                formulaire.Close()
-            Next
+            Call supprimerEnfant()
             MessageBox.Show("Vous avez perdu !", "Attrape", MessageBoxButtons.OK,
                         MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1)
         End If

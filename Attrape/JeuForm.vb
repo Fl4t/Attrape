@@ -5,7 +5,7 @@
                                       Handles CommencerButton.Click
         Me.Hide()
         MDIParentForm.TempToolStripTextBox.Text = 30
-        MDIParentForm.nouveauFormulaire()
+        MDIParentForm.nouvellePartie()
     End Sub
 
     Private Sub MonoRadioButton_Click(ByVal sender As Object,
